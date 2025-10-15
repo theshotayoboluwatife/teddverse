@@ -81,52 +81,54 @@ const ProjectsSection = () => {
               ))}
             </div>
 
-            <div className="buttons" style={{ marginTop: '1.5em', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              {project.liveLink && (
+          <div className="buttons" style={{ marginTop: '1.5em', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            {project.liveLink && (
+              <a
+                href={project.liveLink}
+                className="btn live-demo"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  padding: '0.85rem 1.8rem',
+                  fontSize: 'clamp(0.9rem, 2vw, 1rem)',
+                  fontWeight: '700',
+                  borderRadius: '8px',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: '#fff',
+                  transition: 'all 0.3s',
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                  textAlign: 'center'
+                }}
+              >
+                Live Project ↗
+              </a>
+            )}
 
-                  href={project.liveLink}
-                  className="btn live-demo"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    padding: '0.85rem 1.8rem',
-                    fontSize: 'clamp(0.9rem, 2vw, 1rem)',
-                    fontWeight: '700',
-                    borderRadius: '8px',
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    color: '#fff',
-                    transition: 'all 0.3s',
-                    textDecoration: 'none',
-                    display: 'inline-block',
-                    textAlign: 'center'
-                  }}
-                >
-                  Live Project ↗
-                </a>
-              )}
-              {project.sourceLink && (
+            {project.sourceLink && (
+              <a
+                href={project.sourceLink}
+                className="btn view-source"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  padding: '0.85rem 1.8rem',
+                  fontSize: 'clamp(0.9rem, 2vw, 1rem)',
+                  fontWeight: '700',
+                  borderRadius: '8px',
+                  background: '#f5f5f5',
+                  color: '#333',
+                  transition: 'all 0.3s',
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                  textAlign: 'center'
+                }}
+              >
+                View Source
+              </a>
+            )}
+          </div>
 
-                  href={project.sourceLink}
-                  className="btn view-source"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    padding: '0.85rem 1.8rem',
-                    fontSize: 'clamp(0.9rem, 2vw, 1rem)',
-                    fontWeight: '700',
-                    borderRadius: '8px',
-                    background: '#f5f5f5',
-                    color: '#333',
-                    transition: 'all 0.3s',
-                    textDecoration: 'none',
-                    display: 'inline-block',
-                    textAlign: 'center'
-                  }}
-                >
-                  View Source
-                </a>
-              )}
-            </div>
           </div>
         </div>
       ))}
