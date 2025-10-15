@@ -9,7 +9,6 @@ const ProjectsSection = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        // ✅ Fetch projects ordered by createdAt in descending order (newest first)
         const q = query(collection(db, 'projects'), orderBy('createdAt', 'desc'));
         const querySnapshot = await getDocs(q);
 
@@ -56,28 +55,33 @@ const ProjectsSection = () => {
               minHeight: '400px'
             }}
           ></div>
+
           <div className="project-content">
             <h2 style={{ fontSize: '2rem', fontWeight: '800', marginBottom: '1rem' }}>
               {project.title}
             </h2>
+
             <p style={{ marginTop: '1em', marginBottom: '1.5em', lineHeight: '1.8', fontSize: '1.05rem', color: '#5f5f5f' }}>
               {project.about}
             </p>
-            <div className="badges" style={{ marginBottom: '2em', marginTop: '1.5em' }}>
+
+            <div className="badges" style={{ marginBottom: '2em', marginTop: '1.5em', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
               {project.tags && project.tags.map((tag, idx) => (
                 <span
                   key={idx}
                   className="badge"
                   style={{
-                    marginTop: '0.5em',
-                    marginBottom: '0.5em',
-                    display: 'inline-block'
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    backgroundColor: '#eee',
+                    fontSize: '0.85rem'
                   }}
                 >
                   {tag}
                 </span>
               ))}
             </div>
+
             <div className="buttons" style={{ marginTop: '1.5em', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               {project.liveLink && (
                 <a
@@ -90,7 +94,10 @@ const ProjectsSection = () => {
                     fontSize: '1rem',
                     fontWeight: '700',
                     borderRadius: '8px',
-                    transition: 'all 0.3s'
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    color: '#fff',
+                    transition: 'all 0.3s',
+                    textDecoration: 'none'
                   }}
                 >
                   Live Project ↗
@@ -107,10 +114,13 @@ const ProjectsSection = () => {
                     fontSize: '1rem',
                     fontWeight: '700',
                     borderRadius: '8px',
-                    transition: 'all 0.3s'
+                    background: '#f5f5f5',
+                    color: '#333',
+                    transition: 'all 0.3s',
+                    textDecoration: 'none'
                   }}
                 >
-                  <i className="fab fa-github"></i> View Source
+                  View Source
                 </a>
               )}
             </div>

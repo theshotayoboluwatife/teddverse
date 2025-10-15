@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // CSS imports
 import './assets/css/bootstrap.min.css';
@@ -11,6 +11,18 @@ import './assets/css/revamp.css';
 import ProjectsSection from './components/projectSection';
 
 const Home = () => {
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  const toggleMobileMenu = () => setShowMobileMenu(prev => !prev);
+
+  // Track window resize
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   useEffect(() => {
     const progresses = document.querySelectorAll('.skill-progress');
     progresses.forEach(progress => {
@@ -62,31 +74,56 @@ const Home = () => {
   }
 `}</style>
 
-{/* NAVIGATION */}
-<nav style={{ backgroundColor: '#0f0f1e', padding: '15px 0', boxShadow: '0 4px 20px rgba(0,0,0,0.3)', position: 'sticky', top: 0, zIndex: 1000 }}>
-  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px', maxWidth: '1400px', margin: '0 auto' }}>
-    <a href="index.html" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '12px' }}>
-      <img
-        src="images/teddverse-logo.png"
-        alt="Teddverse Technologies"
-        className="nav-logo-img"
-        style={{ height: '65px', width: '65px', borderRadius: '50%', objectFit: 'cover', border: '3px solid rgba(102,126,234,0.3)', boxShadow: '0 4px 15px rgba(102,126,234,0.2)' }}
-      />
-      <span className="nav-logo-text" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.5rem)', fontWeight: '800', color: '#fff', letterSpacing: '-0.5px', whiteSpace: 'nowrap' }}>
-        Teddverse <span style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Tech</span>
-      </span>
-    </a>
-    <div className="mobile-hamburger">☰</div>
-    <div className="mobile-nav-menu" style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-      <ul style={{ listStyle: 'none', display: 'flex', gap: '25px', margin: 0, padding: 0, alignItems: 'center' }}>
-        <li><a href="#about" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '1.05rem', fontWeight: '600', whiteSpace: 'nowrap' }}>About</a></li>
-        <li><a href="#services" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '1.05rem', fontWeight: '600', whiteSpace: 'nowrap' }}>Services</a></li>
-        <li><a href="#project_list" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '1.05rem', fontWeight: '600', whiteSpace: 'nowrap' }}>Projects</a></li>
-        <li><a href="#contact" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.95rem', fontWeight: '700', padding: '10px 25px', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '50px', boxShadow: '0 4px 15px rgba(102,126,234,0.3)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-block', whiteSpace: 'nowrap' }}>Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+    {/* NAVIGATION */}
+      <nav style={{ backgroundColor: '#0f0f1e', padding: '15px 0', boxShadow: '0 4px 20px rgba(0,0,0,0.3)', position: 'sticky', top: 0, zIndex: 1000 }}>
+           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px', maxWidth: '1400px', margin: '0 auto' }}>
+             <a href="index.html" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '12px' }}>
+               <img src="images/teddverse-logo.png" alt="Teddverse Technologies" className="nav-logo-img" style={{ height: '65px', width: '65px', borderRadius: '50%', objectFit: 'cover', border: '3px solid rgba(102,126,234,0.3)', boxShadow: '0 4px 15px rgba(102,126,234,0.2)' }} />
+               <span className="nav-logo-text" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.5rem)', fontWeight: '800', color: '#fff', letterSpacing: '-0.5px', whiteSpace: 'nowrap' }}>
+                 Teddverse <span style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Tech</span>
+               </span>
+             </a>
+
+             {/* Hamburger only on mobile */}
+             {isMobile && (
+               <div
+                 className="mobile-hamburger"
+                 onClick={toggleMobileMenu}
+                 style={{
+                   fontSize: '1.8rem',
+                   color: '#fff',
+                   cursor: 'pointer',
+                 }}
+               >
+                 ☰
+               </div>
+             )}
+
+             {/* Desktop menu */}
+             {!isMobile && (
+               <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
+                 <ul style={{ listStyle: 'none', display: 'flex', gap: '25px', margin: 0, padding: 0, alignItems: 'center' }}>
+                   <li><a href="#about" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '1.05rem', fontWeight: '600' }}>About</a></li>
+                   <li><a href="#services" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '1.05rem', fontWeight: '600' }}>Services</a></li>
+                   <li><a href="#project_list" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', fontSize: '1.05rem', fontWeight: '600' }}>Projects</a></li>
+                   <li><a href="#contact" style={{ color: '#fff', textDecoration: 'none', fontSize: '0.95rem', fontWeight: '700', padding: '10px 25px', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '50px', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-block', whiteSpace: 'nowrap' }}>Contact</a></li>
+                 </ul>
+               </div>
+             )}
+           </div>
+
+           {/* Mobile menu dropdown */}
+           {isMobile && showMobileMenu && (
+             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', backgroundColor: '#0f0f1e', padding: '15px 20px' }}>
+               <a href="#about" style={{ color: '#fff', textDecoration: 'none', fontWeight: '600', padding: '10px 0' }}>About</a>
+               <a href="#services" style={{ color: '#fff', textDecoration: 'none', fontWeight: '600', padding: '10px 0' }}>Services</a>
+               <a href="#project_list" style={{ color: '#fff', textDecoration: 'none', fontWeight: '600', padding: '10px 0' }}>Projects</a>
+               <a href="#contact" style={{ color: '#fff', textDecoration: 'none', fontWeight: '700', padding: '10px 0', borderTop: '1px solid rgba(255,255,255,0.2)', marginTop: '10px' }}>Contact</a>
+             </div>
+           )}
+         </nav>
+
+
       {/* HERO */}
       <section style={{ background: 'linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%)', padding: 'clamp(60px, 15vw, 120px) 20px', position: 'relative', overflow: 'hidden', minHeight: 'clamp(500px, 80vh, 750px)', display: 'flex', alignItems: 'center' }}>
         <div className="hero-decorative" style={{ position: 'absolute', top: '10%', right: '5%', width: '400px', height: '400px', background: 'linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.15) 100%)', borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%', transform: 'rotate(45deg)' }}></div>
@@ -187,7 +224,6 @@ const Home = () => {
       <footer style={{ backgroundColor: '#0a0a14', color: '#fff', padding: '40px 20px', borderTop: '1px solid rgba(102,126,234,0.2)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
           <p style={{ margin: '0', fontSize: '1rem', color: 'rgba(255,255,255,0.7)' }}>© 2025 Teddverse Technologies. All rights reserved.</p>
-          <p style={{ margin: '15px 0 0 0', fontSize: '0.95rem' }}><a href="https://www.teddverse.pro" style={{ color: '#667eea', textDecoration: 'none', fontWeight: '600' }}>www.teddverse.pro</a></p>
         </div>
       </footer>
     </>
